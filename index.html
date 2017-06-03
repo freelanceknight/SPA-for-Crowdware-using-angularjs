@@ -1,0 +1,131 @@
+<html><head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+	
+	<body ng-app="myApp" ng-controller="myController">
+		<div class="section">
+			<div class="container">
+				<div class="row" >
+					<div class="col-sm-12">
+						<h3>Top Movie List from IMDB</h3>
+						<a class="btn btn-primary" href="" data-toggle="modal" data-target="#addMovieModal">Add Movie</a>
+						
+					</div>
+				</div>
+				<br/>
+				<div class="row" >
+					<div class="col-sm-12">
+						
+						<p>Search : <input type="text" ng-model="searchString"/></p>
+						<hr/>
+						
+					</div>
+				</div>
+				
+				<!-- Modal -->
+				<div id="addMovieModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog modal-sm">
+
+					<!-- Modal content-->
+					<form name="addMovieForm" role="form">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Add Movie</h4>
+						  </div>
+						  <div class="modal-body">
+							<p>Name: <input type="text" name="name" ng-model="newMovie.title"/></p>
+							
+						  </div>
+						  <div class="modal-footer">
+							<input class="btn btn-default" type="submit" value="Add" ng-disabled="addMovieForm.name.$invalid" data-dismiss="modal" ng-click="addMovie();"/>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						  </div>
+						</div>
+					</form>
+
+				  </div>
+				</div>
+				<!-- Modal -->
+				<div id="editMovieModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog modal-md">
+
+					<!-- Modal content-->
+					
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Edit Movie</h4>
+						  </div>
+						  <div class="modal-body">
+							<form class="form-horizontal" role="form">
+							  <div class="form-group">
+								<div class="col-sm-2">
+								  <label class="control-label">Title</label>
+								</div>
+								<div class="col-sm-10">
+								  <input type="text" class="form-control" id="title" ng-model="selectedMovie.title">
+								</div>
+							  </div>
+							  <div class="form-group">
+								<div class="col-sm-2">
+								  <label class="control-label">Rank</label>
+								</div>
+								<div class="col-sm-10">
+								  <input type="text" class="form-control" id="rank" ng-model="selectedMovie.rank">
+								</div>
+							  </div>
+							  <div class="form-group">
+								<div class="col-sm-2">
+								  <label class="control-label">ID</label>
+								</div>
+								<div class="col-sm-10">
+								  <input type="text" class="form-control" id="id" ng-model="selectedMovie.id">
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+								  <button type="submit" class="btn btn-default" data-dismiss="modal">Edit Movie</button>
+								</div>
+							  </div>
+							</form>
+							
+						  </div>
+						  
+						</div>
+					
+
+				  </div>
+				</div>
+				
+				<div class="row well" ng-repeat="movie in movieList | filter:searchString" >
+					<div class="col-sm-8">
+						<p> Name: {{movie.title}} </p>
+						<p> Rank: {{movie.rank}} </p>
+						<p> ID: {{movie.id}} </p>
+						
+					</div>
+					<div class="col-sm-4">
+						<a class="btn btn-primary" data-toggle="modal" data-target="#editMovieModal" ng-click="selectMovie(movie);" >Edit</a>
+						<a class="btn btn-danger" ng-click="deleteMovie(movie);">Delete</a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/myController.js"></script>
+	<script src="scripts/factory.js"></script>
+	
+
+</html>
